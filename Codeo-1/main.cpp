@@ -20,6 +20,7 @@ int main()
     vector<int> newNum;
     string line;
     ifstream file;
+    ofstream outputFile;
     int column = 0;
 
     // file manipulation and storage of nums
@@ -31,13 +32,13 @@ int main()
             vec.push_back(vector<int>());
             for (int i = 0; i < line.length(); i++)
             {
-                if (isdigit(line[i]))
+                if (isdigit(line[i])) 
                 {
                     vec[column].push_back(line[i] - 48);
                     break;
                 }
             }
-            for (int i = line.length(); i > 0; i--)
+            for (int i = line.length(); i > -1; i--)
             {
                 if (isdigit(line[i]))
                 {
@@ -49,6 +50,17 @@ int main()
         }
     }
     file.close();
+
+
+    outputFile.open("output.txt");
+    for (int i = 0; i < vec.size(); i++){
+        for (int p = 0; p < 2; p++){
+            outputFile << vec[i][p] << " ";
+        }
+        outputFile << endl;
+    }
+    outputFile.close();
+
 
     // concatonating the numbers in each row
     for (int i = 0; i < vec.size(); i++)
