@@ -7,8 +7,8 @@
 #include <regex>
 using namespace std;
 
-int calc(string line, int gameNum, bool possible){
-    vector<int> max = {12, 13, 14};
+int calc(string line, int gameNum){
+    vector<int> max = {0, 0, 0};
     vector<regex> pattern = {regex("([0-9]+) red"), regex("([0-9]+) green"), regex("([0-9]+) blue")};
 
     for (int i = 0; i < pattern.size(); i++){
@@ -20,13 +20,10 @@ int calc(string line, int gameNum, bool possible){
             if (val <= max[i]){
                 continue;
             }
-            possible = false;
-            if (possible == false){
-                return 0;
-            }
+            max[i] = val;
         }
     }
-    return gameNum;
+    return max[0]*max[1]*max[2];
 }
 
 
@@ -34,7 +31,6 @@ int main()
 {
     int sum = 0;
     int gameNum = 0;
-    bool possible = true;
 
     //file manipulation
     ifstream file;
@@ -42,7 +38,7 @@ int main()
     file.open("input2.txt");
     while (getline(file, line)){
         gameNum++;
-        sum += calc(line, gameNum, possible);
+        sum += calc(line, gameNum);
     }
     file.close();
 
