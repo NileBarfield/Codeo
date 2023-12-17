@@ -9,13 +9,17 @@ using namespace std;
 
 int main()
 {
-    int totalPoints = 0;
+    int totalCards = 0;
+    int card = 0;
+    //change amount according to number of winning numbers
+    vector<int> x(10,1);
 
     //file manipulation
     ifstream file;
     string line;
     file.open("input2.txt");
     while (getline(file, line)){
+        x.push_back(1);
         int matches = 0;
         string num;
         vector<std::string> winning;
@@ -32,10 +36,15 @@ int main()
                 winning.push_back(num);
             }
         }
-        totalPoints += pow(2, matches-1);
+
+        auto start = x.begin() + card + 1;
+        auto end = min(start + matches, x.end());
+        transform(start, end, start, [&x, card](int n) { return n + x[card]; });
+        totalCards += x[card];
+        card++;
     }
     file.close();
 
-    cout << totalPoints << endl;
+    cout << totalCards << endl;
     return 0;
 }
