@@ -17,7 +17,7 @@ int calc(string line, int gameNum, bool possible){
 
         for (sregex_iterator x = begin; x != end; x++){
             int val = stoi((*x)[1]);
-            if (val < max[i]){
+            if (val <= max[i]){
                 continue;
             }
             possible = false;
@@ -41,7 +41,7 @@ int main()
     //file manipulation
     ifstream file;
     string line;
-    file.open("input1.txt");
+    file.open("input2.txt");
     while (getline(file, line)){
         gameNum++;
         sum += calc(line, gameNum, possible);
